@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "gravitychamber"
+version = "0.1.0"
+description = "Create a gravity chamber GUI"
+authors = ["shaunporwal <shaun.porwal@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "~3.11"
+pygame = "^2.2.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
