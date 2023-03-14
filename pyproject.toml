@@ -6,8 +6,9 @@ authors = ["shaunporwal <shaun.porwal@gmail.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "~3.11"
+python = "~3.8"
 pygame = "^2.2.0"
+tk = "^0.1.0"
 
 
 [build-system]

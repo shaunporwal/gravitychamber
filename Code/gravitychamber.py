@@ -1,56 +1,96 @@
-
-
-
-
-
-
-import pygame
+import tkinter as tk
 import random
 
-# Initialize Pygame
-pygame.init()
+# Define the size of the grid
+grid_size = 10
 
-# Set window dimensions
-WINDOW_WIDTH = 1000
-WINDOW_HEIGHT = 1
+# Create a new Tkinter window
+root = tk.Tk()
 
-# Set colors
-BLACK = (0, 0, 0)
-WHITE = (255, 255, 255)
+# Set the title of the window
+root.title("Moving Pixels")
 
-# Create window
-window = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
+# Create a canvas widget
+canvas = tk.Canvas(root, width=500, height=500)
 
-# Initialize pixel array with 300 black pixels randomly placed
-pixels = [BLACK] * 1000
-for i in range(300):
-    index = random.randint(0, 999)
-    pixels[index] = WHITE
+# Create a grid of white pixels
+for i in range(grid_size):
+    for j in range(grid_size):
+        x1 = i * 50
+        y1 = j * 50
+        x2 = x1 + 50
+        y2 = y1 + 50
+        fill_color = "white"
+        if i == grid_size//2 and j == grid_size//2:
+            pass
+            # fill_color = "black"
+        canvas.create_rectangle(x1, y1, x2, y2, fill=fill_color)
 
-# Main game loop
-running = True
-while running:
+# Create 30 black pixels at random positions
+black_pixels = []
+for i in range(30):
+    x, y = random.randint(1, grid_size - 2), random.randint(1, grid_size - 2)
+    while canvas.itemcget(canvas.find_closest(x * 50 + 25, y * 50 + 25), "fill") == "black":
+        x, y = random.randint(1, grid_size - 2), random.randint(1, grid_size - 2)
+    x1 = x * 50
+    y1 = y * 50
+    x2 = x1 + 50
+    y2 = y1 + 50
+    black_pixels.append(canvas.create_rectangle(x1, y1, x2, y2, fill="black"))
 
-    # Handle events
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
 
-    # Move black pixels to random adjacent white pixel spots
-    for i in range(1000):
-        if pixels[i] == BLACK:
-            adjacent_indices = [j for j in range(i-1, i+2) if j >= 0 and j < 1000 and pixels[j] == WHITE]
-            if adjacent_indices:
-                new_index = random.choice(adjacent_indices)
-                pixels[new_index] = BLACK
-                pixels[i] = WHITE
+# Create a slider for controlling the gravity parameter
+gravity_scale = tk.Scale(root, from_=0.0, to=1.0, resolution=0.01, orient=tk.HORIZONTAL, label="Gravity")
+gravity_scale.pack()
 
-    # Draw pixels on window
-    for i in range(1000):
-        pygame.draw.rect(window, pixels[i], (i, 0, 1, 1))
+# Pack the canvas widget into the window
+canvas.pack()
 
-    # Update window
-    pygame.display.update()
+# Define a function to move the black pixels
+def move_pixels():
+    for pixel in black_pixels:
+        # Get the current position of the pixel
+        x1, y1, x2, y2 = canvas.coords(pixel)
+        x = x1 // 50
+        y = y1 // 50
+        # Choose a random direction to move
+        dx, dy = random.choice([(0, 1), (1, 0), (0, -1), (-1, 0)])
+        # Adjust the dy value based on the current y position and gravity coefficient
+        gravity = gravity_scale.get()/3
+        dy += int((grid_size - y) * gravity)
+        # Check if there is another black pixel in the way of the chosen direction
+        if dx == 1 and canvas.itemcget(canvas.find_closest(x2 + 25, y1 + 25), "fill") == "black":
+            dx = 0
+        elif dx == -1 and canvas.itemcget(canvas.find_closest(x1 - 25, y1 + 25), "fill") == "black":
+            dx = 0
+        elif dy == 1 and canvas.itemcget(canvas.find_closest(x1 + 25, y2 + 25), "fill") == "black":
+            dy = 0
+        elif dy == -1 and canvas.itemcget(canvas.find_closest(x1 + 25, y1 - 25), "fill") == "black":
+            dy = 0
+        # Move the pixel
+        new_x = x + dx
+        new_y = y + dy
+        if new_x < 0:
+            new_x = 0
+        elif new_x >= grid_size:
+            new_x = grid_size - 1
+        if new_y < 0:
+            new_y = 0
+        elif new_y >= grid_size:
+            new_y = grid_size - 1
+        # Check if there is an adjacent white pixel
+        if canvas.itemcget(canvas.find_closest(new_x * 50 + 25, new_y * 50 + 25), "fill") == "white":
+            new_x1 = new_x * 50
+            new_y1 = new_y * 50
+            new_x2 = new_x1 + 50
+            new_y2 = new_y1 + 50
+            canvas.coords(pixel, new_x1, new_y1, new_x2, new_y2)
 
-# Quit Pygame
-pygame.quit()
+    # Schedule the move_pixels function to run again in 1 second
+    root.after(100, move_pixels)
+
+# Schedule the move_pixels function to run after 1 second
+root.after(100, move_pixels)
+
+# Start the main event loop
+root.mainloop()

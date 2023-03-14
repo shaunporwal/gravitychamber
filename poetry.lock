@@ -78,7 +78,19 @@ files = [
     {file = "pygame-2.2.0.tar.gz", hash = "sha256:c64d06a97dd7fcdb8433c1c846757e9d253a36e49e579daeab090caeb6b2ef31"},
 ]
 
+[[package]]
+name = "tk"
+version = "0.1.0"
+description = "TensorKit is a deep learning helper between Python and C++."
+category = "main"
+optional = false
+python-versions = "*"
+files = [
+    {file = "tk-0.1.0-py3-none-any.whl", hash = "sha256:703a69ff0d5ba2bd2f7440582ad10160e4a6561595d33457dc6caa79b9bf4930"},
+    {file = "tk-0.1.0.tar.gz", hash = "sha256:60bc8923d5d35f67f5c6bd93d4f0c49d2048114ec077768f959aef36d4ed97f8"},
+]
+
 [metadata]
 lock-version = "2.0"
 python-versions = "~3.11"
-content-hash = "00da345373cc40acd92b355b92f145746f976080f7aa9751719fa01f27f8a3a2"
+content-hash = "5ffd72562e12cc12d0ca549439cbda9f8274d0914359845b6ab4318357b93b96"
