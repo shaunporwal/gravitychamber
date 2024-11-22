@@ -65,7 +65,7 @@ st.markdown(
 )
 
 # App title
-st.markdown('<div class="centered-title">Moving Pixels</div>', unsafe_allow_html=True)
+st.markdown('<div class="centered-title">Gravchamber</div>', unsafe_allow_html=True)
 
 # Controls for grid size and black pixel count
 st.markdown('<div class="controls">', unsafe_allow_html=True)
