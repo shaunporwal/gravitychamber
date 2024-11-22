@@ -1,4 +1,4 @@
-# GravityChamber
+# gravitychamber
 
 GravityChamber is an interactive application for visualizing pixel movements under the influence of gravity.
 
@@ -25,8 +25,3 @@ The app is live and accessible here:
 
 ---
 
-### 📂 Repository Structure
-
-- `app.py`: Main application script.
-- `gravchamber.png`: Preview image of the application.
-- Other supporting files for the project.
