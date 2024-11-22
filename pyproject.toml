@@ -1,16 +1,11 @@
-[tool.poetry]
+[project]
 name = "gravitychamber"
 version = "0.1.0"
-description = "Create a gravity chamber GUI"
-authors = ["shaunporwal <shaun.porwal@gmail.com>"]
+description = "Add your description here"
 readme = "README.md"
-
-[tool.poetry.dependencies]
-python = "~3.8"
-pygame = "^2.2.0"
-tk = "^0.1.0"
-
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires-python = ">=3.12"
+dependencies = [
+    "streamlit>=1.40.1",
+    "tk>=0.1.0",
+    "watchdog>=6.0.0",
+]

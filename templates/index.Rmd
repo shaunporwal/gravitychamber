@@ -1,0 +1,23 @@
+---
+title: "index.Rmd"
+output: html_document
+date: "2023-04-07"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python GUI Slider</title>
+</head>
+<body>
+    <!-- Your HTML content will go here -->
+</body>
+</html>
+
